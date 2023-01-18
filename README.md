@@ -1,3 +1,3 @@
 # PixNRun
 
-[Play Here !](https//pixnrun.netlify.app)
+[Play Here !](https//pixnrun.netlify.app/)
