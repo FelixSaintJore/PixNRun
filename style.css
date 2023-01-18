@@ -1,0 +1,24 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: green;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+#scoreDisplay {
+	width: 300px;
+	height: 50px;
+	background: red;
+	transform: perspective(10px) rotateX(5deg);
+    /*transform: scaleY(-1);*/
+	margin: 0;
+	/*outline: 1px solid black;*/
+}
