@@ -6,6 +6,8 @@ https://www.youtube.com/watch?v=rTVoyWu8r6g
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
+const speed = 10;
+
 
 canvas.width = 800;
 canvas.height = 500;
@@ -53,6 +55,33 @@ class Sprite {
     }
 }
 
+class obstacle {
+    constructor({position, width, height}) {
+        this.position = position;
+        //this.velocity = velocity;
+        this.width = width;
+        this.height = height;
+    }
+    draw() {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
+    update() {
+        this.draw();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
+        if(this.position.y + this.height + this.velocity.y >= canvas.height){
+            this.velocity.y = 0;
+        }else{
+            this.velocity.y += GLB_gravity;
+        }
+    }
+
+}
+
+
 class SpriteBackground {
     constructor({position, imageSrc}) {
         this.position = position;
@@ -80,9 +109,19 @@ const player = new Sprite({
     }
 });
 
-player.draw();
+const block = new obstacle({
+    position: {
+        x: 100,
+        y: 200
+    },
+    width: 50,
+    height: 30
+})
 
-console.log(player);
+player.draw();
+block.draw();
+
+console.log(player, block);
 
 const keys = {
     z: {
@@ -131,6 +170,7 @@ function animate() {
     ctx.restore();
 
     player.update();
+    block.update();
 
     player.velocity.x = 0;
 
@@ -151,7 +191,7 @@ function animate() {
     if (keys.d.pressed || keys.arrowRight.pressed) {
         player.velocity.x = GLB_velocityX;
     }
-    if (keys.arrowDown.pressed) {
+    if (keys.arrowDown.pressed && player.position.y >  400.39999999999986) {
         player.velocity.y = GLB_velocityY;
     }
 }
@@ -184,6 +224,10 @@ window.addEventListener('keydown', (event) => {
             keys.arrowRight.pressed = true;
             player.lastKey = 'ArrowRight';
             break;
+        case 'ArrowDown' : 
+            keys.arrowDown.pressed = true;
+            player.lastKey = 'ArrowDown';
+            break;
     }
 });
 
@@ -207,5 +251,12 @@ window.addEventListener('keyup', (event) => {
         case 'ArrowRight':
             keys.arrowRight.pressed = false;
             break;
+        case 'ArrowDown':
+            keys.arrowDown.pressed = false;
+            break;
     }
 });
+
+
+
+
