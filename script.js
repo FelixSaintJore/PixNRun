@@ -94,6 +94,7 @@ const keys = {
     d: {
         pressed: false
     },
+
     arrowUp: {
         pressed: false
     },
@@ -102,6 +103,9 @@ const keys = {
     },
     arrowRight: {
         pressed: false
+    },
+    arrowDown: {
+        pressed : false
     }
 }
 
@@ -110,7 +114,7 @@ const background = new SpriteBackground({
         x: 0,
         y: 0
     },
-    imageSrc: './img/background.png'
+    imageSrc: './background.png'
 })
 
 function animate() {
@@ -146,6 +150,9 @@ function animate() {
     }
     if (keys.d.pressed || keys.arrowRight.pressed) {
         player.velocity.x = GLB_velocityX;
+    }
+    if (keys.arrowDown.pressed) {
+        player.velocity.y = GLB_velocityY;
     }
 }
 
