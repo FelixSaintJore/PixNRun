@@ -3,22 +3,6 @@
 https://www.youtube.com/watch?v=rTVoyWu8r6g
 
 */
-// Your CSS as text
-var styles = `
-    #gallery {  
-        width: 100%; 
-        overflow: hidden;  
-        white-space: nowrap;
-    }
-    #gallery img {  
-        height: 200px;
-    }
-`
-
-var styleSheet = document.createElement("style")
-styleSheet.innerText = styles
-document.head.appendChild(styleSheet)
-
 
 const canvas = document.getElementById("canvasGame");
 const ctx = canvas.getContext('2d');
