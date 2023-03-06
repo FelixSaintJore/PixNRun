@@ -15,15 +15,6 @@ var styles = `
     }
 `
 
-
-
-// window.addEventListener('load', (event) => {
-//     console.log('The page has fully loaded');
-//     canvasHeight = window.innerHeight* 0.9;
-//     canvasWidth = window.innerWidth * 0.8;
-// });
-
-
 var styleSheet = document.createElement("style")
 styleSheet.innerText = styles
 document.head.appendChild(styleSheet)
@@ -255,7 +246,7 @@ function animate() {
     if (keys.d.pressed || keys.arrowRight.pressed ) {
         player.velocity.x = GLB_velocityX;
     }
-    if (keys.arrowDown.pressed && player.position.y >= canvas.height) {
+    if (keys.arrowDown.pressed && player.position.y <= canvas.height) {
         player.velocity.y = GLB_velocityY;
     }
 
