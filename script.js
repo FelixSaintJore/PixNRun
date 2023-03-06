@@ -3,26 +3,6 @@
 https://www.youtube.com/watch?v=rTVoyWu8r6g
 
 */
-// Your CSS as text
-var styles = `
-    #gallery {  
-        width: 100%; 
-        overflow: hidden;  
-        white-space: nowrap;
-    }
-    #gallery img {  
-        height: 200px;
-    }
-`
-
-
-
-// window.addEventListener('load', (event) => {
-//     console.log('The page has fully loaded');
-//     canvasHeight = window.innerHeight* 0.9;
-//     canvasWidth = window.innerWidth * 0.8;
-// });
-
 
 var styleSheet = document.createElement("style")
 styleSheet.innerText = styles
