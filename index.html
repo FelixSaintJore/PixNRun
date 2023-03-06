@@ -1,20 +1,126 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	
-	<link rel="stylesheet" href="style.css">
-	
-	<link rel="icon" type="img/png" href="img/logo.png"/>
-	
-	<script defer src="script.js"></script>
-	
-	<title>Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="img/png" href="img/logo.png" />
+
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script defer src="menujs.js"></script>
+
+    <title>Game</title>
 </head>
+
 <body>
-	<canvas id="canvasGame"></canvas>
+
+    <div class="container text-center bg-tertiary">
+        <div class="row ">
+            <div class="col-md-6 offset-md-3">
+
+                <h1 class="pixngun">PIX&RUN</h1>
+            </div>
+        </div>
+        <!--les boutons de l'accueil-->
+        <div class="row p-3">
+            <div class="col-md-6 offset-md-3">
+                <a href="game.html"><button class="btn btn-light bigbutton"><img src="img/play.svg" height="40px"
+                            width="40px" /></button></a>
+            </div>
+        </div>
+        
+        <div class="row p-3">
+            <div class="col-md-6 offset-md-3">
+                <button class="popup btn btn-light bigbutton" data-bs-toggle="modal" data-bs-target="#comPop">Commandes
+                </button>
+            </div>
+        </div>
+
+        <div class="row p-3 justify-content-md-center">
+            <div class="col col-lg-2">
+                <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#skinsPop">Skins
+            </div>
+            <div class="col-md-auto">
+                <!--autoplay="autoplay"-->
+                    <audio id="bgAudio"  loop="loop" autoplay="autoplay" width="0" height="0">
+                        <source src="song/menu.mp4" type="audio/mpeg">
+                    </audio>
+                <button class="mute btn btn-light" onclick="change_mute()">Son</button>
+            </div>
+            <div class="col col-lg-2">
+                <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#scoresPop">Scores
+                </button>
+            </div>
+        
+            <!--les popup-->
+            <!--popup des commandes de jeu-->
+            <div id="comPop" class="modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header-centered">
+                            <h1> Les commandes de jeu</h1>
+                        </div>
+                        <div class="modal-body">
+                            <img src="img/touches.JPG">
+                        </div>
+                        <div class="modal-footer">
+                            <p> Amusez-vous bien!</p>
+                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
+                                popup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--popup des skins-->
+            <div id="skinsPop" class="modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header-centered">
+                            <h1> Choississer votre skins</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-4"><button type="button" class="btn-primary">skin1</button></div>
+                                <div class="col-4"><button type="button" class="btn-primary">skin2</button></div>
+                                <div class="col-4"><button type="button" class="btn-primary">skin3</button></div>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p> Amusez-vous bien!</p>
+                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
+                                popup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--popup des scores-->
+            <div id="scoresPop" class="modal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header-centered">
+                            <h1> Highscores</h1>
+                        </div>
+                        <div class="modal-body">
+                            <p>droite gauche bas haut</p>
+                        </div>
+                        <div class="modal-footer">
+                            <p> Amusez-vous bien!</p>
+                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
+                                popup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
