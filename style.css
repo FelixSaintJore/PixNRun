@@ -4,7 +4,7 @@
 }
 
 body {
-	background-color: green;
+	background-color: rgba(0, 0, 0, 0.221);
 	/*animation: rainbow-bg 10s linear;
 	animation-iteration-count: infinite;*/
 	display: flex;
@@ -15,8 +15,12 @@ body {
 	align-items: flex-start;
 }
 
+
 #canvasGame {
-	border: 10px solid rgb(202, 202, 202);
+	border: 4px solid rgb(0, 0, 0);
+	position: absolute;
+	height: 80%;
+	width: 80%;
 }
 
 @keyframes rainbow-bg{
@@ -56,4 +60,35 @@ body {
 	91%{
 		background-color: rgb(255,0,127);
 	}
+	
+}
+.pixngun {
+	font-size: 70px;
+	color:rgb(0, 0, 0);
+	
+}
+.bigbutton{
+	width: 300px;
+	height: 100px;
+}
+
+.btn{
+	background-color: rgb(255, 255, 255);
+	color:rgb(0, 0, 0);
+	border-radius: 50px;
+	transition: 200ms;
+	box-shadow: rgb(173, 207, 255) 0 -12px 6px inset;
+}
+.btn:hover{
+	background-image: linear-gradient(144deg,rgb(173, 207, 255), #ffffff 50%,#060606);
+}
+
+.modal-body img{
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+.modal-body button{
+	height: 250px;
+	width: 100px;
 }

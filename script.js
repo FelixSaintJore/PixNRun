@@ -17,9 +17,6 @@ const scaledCanvas = {
     height: canvas.height / scaleFactor
 }
 
-ctx.fillStyle = 'white';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
 const GLB_gravity = .7;
 let GLB_velocityX = 5;
 let GLB_velocityY = 15;
@@ -27,17 +24,19 @@ let GLB_velocityY = 15;
 const GLB_bgColor = '#35daf0';
 
 class Sprite {
-    constructor({position, velocity}) {
+    constructor({position, velocity, persoImg}) {
         this.position = position;
         this.velocity = velocity;
-        this.width = 50;
-        this.height = 100;
+        this.image = new Image();
+        this.image.src = persoImg;
+        this.width = 47;
+        this.height = 159;
         this.lastKey;
     }
 
     draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        if(!this.image) return
+        ctx.drawImage(this.image, this.position.x, this.position.y);
     }
 
     update() {
@@ -52,6 +51,80 @@ class Sprite {
         }
     }
 }
+const player = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    }, velocity: {
+        x: 0,
+        y: 0
+    },
+    persoImg: './img/perso.png'
+});
+player.draw();
+console.log(player);
+
+class Plateforme{
+    constructor({position, platef}){
+        this.position=position;
+        this.image = new Image();
+        this.image.src = platef;
+    }
+    draw() {
+        if(!this.image) return
+        ctx.drawImage(this.image, this.position.x, this.position.y);
+    }
+    update() {
+        this.draw(); 
+    }
+
+}
+const plateforme1 = new Plateforme({
+    position: {
+        x: 400,
+        y: 400,
+        width: 166,
+        height: 27
+    },
+    platef: './img/plateforme1.png'
+})
+
+class Obstacle{
+    constructor({position,velocity, obs}){
+        this.position=position;
+        this.velocity = velocity;
+        this.image = new Image();
+        this.image.src = obs;
+    }
+    draw() {
+        if(!this.image) return
+        ctx.drawImage(this.image, this.position.x, this.position.y);
+    }
+
+    update() {
+        this.draw();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
+        if(this.position.y + this.height + this.velocity.y >= canvas.height){
+            this.velocity.y = 0;
+        }else{
+            this.velocity.y += GLB_gravity;
+        }
+    }
+
+}
+const obstaclepique = new Obstacle({
+    position: {
+        x: 600,
+        y: 450
+    }, velocity: {
+        x: 0,
+        y: 0
+    },
+    obs: './img/obspique.png'
+})
+
 
 class SpriteBackground {
     constructor({position, imageSrc}) {
@@ -70,19 +143,7 @@ class SpriteBackground {
     }
 }
 
-const player = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    }, velocity: {
-        x: 0,
-        y: 0
-    }
-});
 
-player.draw();
-
-console.log(player);
 
 const keys = {
     z: {
@@ -94,7 +155,6 @@ const keys = {
     d: {
         pressed: false
     },
-
     arrowUp: {
         pressed: false
     },
@@ -103,9 +163,6 @@ const keys = {
     },
     arrowRight: {
         pressed: false
-    },
-    arrowDown: {
-        pressed : false
     }
 }
 
@@ -114,7 +171,7 @@ const background = new SpriteBackground({
         x: 0,
         y: 0
     },
-    imageSrc: './background.png'
+    imageSrc: './img/background.png'
 })
 
 function animate() {
@@ -129,7 +186,11 @@ function animate() {
     ctx.translate(0, -background.image.height + scaledCanvas.height);
     background.update();
     ctx.restore();
-
+    /*plateformes*/
+    plateforme1.update();
+    /*obbstacles*/
+    obstaclepique.update();
+    /*player*/
     player.update();
 
     player.velocity.x = 0;
@@ -150,9 +211,6 @@ function animate() {
     }
     if (keys.d.pressed || keys.arrowRight.pressed) {
         player.velocity.x = GLB_velocityX;
-    }
-    if (keys.arrowDown.pressed) {
-        player.velocity.y = GLB_velocityY;
     }
 }
 
