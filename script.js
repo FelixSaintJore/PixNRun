@@ -6,7 +6,7 @@ https://www.youtube.com/watch?v=rTVoyWu8r6g
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-
+const speed = 10;
 canvas.width = 800;
 canvas.height = 500;
 
@@ -20,7 +20,6 @@ const scaledCanvas = {
 const GLB_gravity = .7;
 let GLB_velocityX = 5;
 let GLB_velocityY = 15;
-
 const GLB_bgColor = '#35daf0';
 
 class Sprite {
@@ -140,6 +139,7 @@ class SpriteBackground {
 
     update() {
         this.draw();
+        this.position.x -= speed*0.1;
     }
 }
 
@@ -188,7 +188,7 @@ function animate() {
     ctx.restore();
     /*plateformes*/
     plateforme1.update();
-    /*obbstacles*/
+    /*obstacles*/
     obstaclepique.update();
     /*player*/
     player.update();
