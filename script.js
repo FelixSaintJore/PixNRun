@@ -64,8 +64,9 @@ player.draw();
 console.log(player);
 
 class Plateforme{
-    constructor({position, platef}){
+    constructor({position, velocity, platef}){
         this.position=position;
+        this.velocity = velocity;
         this.image = new Image();
         this.image.src = platef;
     }
@@ -73,8 +74,10 @@ class Plateforme{
         if(!this.image) return
         ctx.drawImage(this.image, this.position.x, this.position.y);
     }
+
     update() {
-        this.draw(); 
+        this.draw();
+        this.position.x -= speed*0.1;
     }
 
 }
@@ -84,6 +87,9 @@ const plateforme1 = new Plateforme({
         y: 400,
         width: 166,
         height: 27
+    }, velocity: {
+        x: 0,
+        y: 0
     },
     platef: './img/plateforme1.png'
 })
@@ -102,21 +108,14 @@ class Obstacle{
 
     update() {
         this.draw();
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-
-        if(this.position.y + this.height + this.velocity.y >= canvas.height){
-            this.velocity.y = 0;
-        }else{
-            this.velocity.y += GLB_gravity;
-        }
+        this.position.x -= speed*0.1;
     }
 
 }
 const obstaclepique = new Obstacle({
     position: {
         x: 600,
-        y: 450
+        y: 480
     }, velocity: {
         x: 0,
         y: 0
