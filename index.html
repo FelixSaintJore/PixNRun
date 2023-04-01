@@ -19,61 +19,94 @@
 </head>
 
 <body>
+    <div class="container-fluid">
+        <div class="container text-center">
 
-    <div class="container text-center bg-tertiary">
-        <div class="row ">
-            <div class="col-md-6 offset-md-3">
+            <div class="row">
+                <div class="col">
+                    <img src=" ./img/redNinja.gif" class="img-fluid">
+                </div>
+                <div class="col">
+                    <h1 class="title display-1">PIX&RUN</h1>
+                </div>
+                <div class="col">
+                    <img src=" ./img/blueNinjaTop.gif" class="img-fluid">
+                </div>
+            </div>
 
-                <h1 class="pixngun">PIX&RUN</h1>
+            <!--les boutons de l'accueil-->
+            <div class="row p-2">
+                <div class="col">
+                    <a href="game.html"><button class="btn btn-light btn-lg bigbutton"><img src="img/play.svg"
+                                class="img-fluid" height="40px" width="40px" /></button></a>
+                </div>
             </div>
-        </div>
-        <!--les boutons de l'accueil-->
-        <div class="row p-3">
-            <div class="col-md-6 offset-md-3">
-                <a href="game.html"><button class="btn btn-light bigbutton"><img src="img/play.svg" height="40px"
-                            width="40px" /></button></a>
-            </div>
-        </div>
-        
-        <div class="row p-3">
-            <div class="col-md-6 offset-md-3">
-                <button class="popup btn btn-light bigbutton" data-bs-toggle="modal" data-bs-target="#comPop">Commandes
-                </button>
-            </div>
-        </div>
 
-        <div class="row p-3 justify-content-md-center">
-            <div class="col col-lg-2">
-                <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#skinsPop">Skins
+            <div class="row p-2">
+                <div class="col">
+                    <button class="popup btn btn-lg bigbutton" data-bs-toggle="modal" data-bs-target="#comPop">Commandes
+                    </button>
+                </div>
             </div>
-            <div class="col-md-auto">
-                <!--autoplay="autoplay"-->
-                    <audio id="bgAudio"  loop="loop" autoplay="autoplay" width="0" height="0">
-                        <source src="song/menu.mp4" type="audio/mpeg">
+
+            <div class="row row p-2 justify-content-md-center">
+                <div class="col col-lg-2">
+                    <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#skinsPop">Skins
+                </div>
+                <div class="col-md-auto">
+                    <audio id="bgAudio" loop="loop" autoplay="autoplay" >
+                        <source src="./song/menu.mp4" type="audio/mpeg">
                     </audio>
-                <button class="mute btn btn-light " id="btnSon" onclick="change_mute()"><img src="./img/sonon.svg" id="btnSonImg"></button>
-            </div>
-            <div class="col col-lg-2">
-                <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#scoresPop">Scores
-                </button>
-            </div>
-        
-            <!--les popup-->
-            <!--popup des commandes de jeu-->
-            <div id="comPop" class="modal">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header-centered">
-                            <h1> Les commandes de jeu</h1>
+                    <button class="mute btn btn-light" onclick="change_mute()"><img src="./img/sonon.svg"
+                            id="btnSonImg"></button>
+                </div>
+                <div class="col col-lg-2">
+                    <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#scoresPop">Scores
+                    </button>
+                </div>
+
+                <!--les popup-->
+                <!--popup des commandes de jeu-->
+                <div id="comPop" class="modal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header-centered">
+                                <h1> Les commandes de jeu</h1>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Touches</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Z<br>↑</td>
+                                            <td>Sauter</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q<br>←</td>
+                                            <td>Courir à gauche</td>
+                                        </tr>
+                                        <tr>
+                                            <td>D<br>→</td>
+                                            <td>Courir à droite</td>
+                                        </tr>
+                                        <tr>
+                                            <td>/../</td>
+                                            <td>Pause du jeu</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <img src="img/touches.JPG">
-                        </div>
-                        <div class="modal-footer">
-                            <p> Amusez-vous bien!</p>
-                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
-                                popup</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -84,58 +117,111 @@
                         <div class="modal-header-centered">
                             <h1> Choississer votre skins</h1>
                         </div>
-                        <div class="modal-body">
-                            <div id="carouselExampleIndicators" class="carousel slide centered">
-                                <div class="carousel-indicators">
-                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <div class="modal-body Skins">
+                            <div class="row">
+                                <div class="col ">
+                                    <img id="imgBlackSkin" class="skinDefault" src="img/blackNinja.gif">
+                                    <img id="imgRedSkin" class="skinsImg" src="img/redNinja.gif">
+                                    <img id="imgBluekSkin" class="skinsImg" src="img/blueNinja.gif">
                                 </div>
-                                <div class="carousel-inner">
-                                  <div class="carousel-item active">
-                                    <img src="" class="d-block w-100" alt="Skin1">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="" class="d-block w-100" alt="Skin2">
-                                  </div>
-                                  <div class="carousel-item">
-                                    <img src="" class="d-block w-100" alt="Skin3">
-                                  </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col skinsBtn">
+                                    <button id="btnBlackSkin" class="btn-dark" >Black</button>
+                                    <button id="btnRedSkin" class="btn-danger">Red</button>
+                                    <button id="btnBlueSkin"class="btn-primary">Blue</button>
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                </button>
-                              </div>
+
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <p> Amusez-vous bien!</p>
-                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
-                                popup</button>
+                            <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!--popup des scores-->
-            <div id="scoresPop" class="modal">
+            <div id="scoresPop" class="modal dark">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header-centered">
                             <h1> Highscores</h1>
                         </div>
                         <div class="modal-body">
-                            <p>droite gauche bas haut</p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#Top</th>
+                                        <th scope="col">Pseudo</th>
+                                        <th scope="col">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>4500PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>3250PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jean</td>
+                                        <td>3000PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Will</td>
+                                        <td>2900PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>William</td>
+                                        <td>2800PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>Sarah</td>
+                                        <td>2500PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">7</th>
+                                        <td>François</td>
+                                        <td>2400PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">8</th>
+                                        <td>Fatima</td>
+                                        <td>2200PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">9</th>
+                                        <td>Rachel</td>
+                                        <td>1500PR</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">10</th>
+                                        <td>Claude</td>
+                                        <td>950PR</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="modal-footer">
-                            <p> Amusez-vous bien!</p>
-                            <button type="button" class="btn-danger" data-bs-dismiss="modal">Fermer le
-                                popup</button>
+                            <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="container-fluid">
+            <div class="wave1"></div>
+            <div class="wave2"></div>
+            <div class="wave3"></div>
         </div>
     </div>
 
