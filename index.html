@@ -37,14 +37,14 @@
             <!--les boutons de l'accueil-->
             <div class="row p-2">
                 <div class="col">
-                    <a href="game.html"><button class="btn btn-light btn-lg bigbutton"><img src="img/play.svg"
+                    <a href="game.html"><button class="btn btn-light bigbutton"><img src="img/play.svg"
                                 class="img-fluid" height="40px" width="40px" /></button></a>
                 </div>
             </div>
 
             <div class="row p-2">
                 <div class="col">
-                    <button class="popup btn btn-lg bigbutton" data-bs-toggle="modal" data-bs-target="#comPop">Commandes
+                    <button class="popup btn bigbutton" data-bs-toggle="modal" data-bs-target="#comPop">Commandes
                     </button>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     <button class="popup btn btn-light" data-bs-toggle="modal" data-bs-target="#skinsPop">Skins
                 </div>
                 <div class="col-md-auto">
-                    <audio id="bgAudio" loop="loop" autoplay="autoplay" >
+                    <audio id="bgAudio" loop="loop" autoplay="autoplay">
                         <source src="./song/menu.mp4" type="audio/mpeg">
                     </audio>
                     <button class="mute btn btn-light" onclick="change_mute()"><img src="./img/sonon.svg"
@@ -76,12 +76,12 @@
                             <div class="modal-body">
                                 <table class="table table-bordered dark">
                                     <thead>
-                                        <tr>
+                                        <tr class="table-dark">
                                             <th scope="col">Touches</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="table-secondary">
                                         <tr>
                                             <td>Z<br>↑</td>
                                             <td>Sauter</td>
@@ -96,13 +96,14 @@
                                         </tr>
                                         <tr>
                                             <td>/../</td>
-                                            <td>Pause du jeu</td>
+                                            <td>Mettre en pause le jeu</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="modal-footer">
+                                <h6>Voici les différentes commandes qui vous seront utiles pour jouer au jeu</h6>
                                 <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header-centered">
-                            <h1> Choississer votre skins</h1>
+                            <h1> Choississez votre skins</h1>
                         </div>
                         <div class="modal-body Skins">
                             <div class="row">
@@ -127,14 +128,15 @@
                             </div>
                             <div class="row ">
                                 <div class="col skinsBtn">
-                                    <button id="btnBlackSkin" class="btn-dark" >Black</button>
+                                    <button id="btnBlackSkin" class="btn-dark">Black</button>
                                     <button id="btnRedSkin" class="btn-danger">Red</button>
-                                    <button id="btnBlueSkin"class="btn-primary">Blue</button>
+                                    <button id="btnBlueSkin" class="btn-primary">Blue</button>
                                 </div>
 
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <h6>Woaaa des ninjas en plusieurs couleurs!!! Le ninja noir est choisi par défaut</h6>
                             <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
                         </div>
                     </div>
@@ -211,6 +213,7 @@
                             </table>
                         </div>
                         <div class="modal-footer">
+                            <button class="btn-sm btn-secondary">Effacer les scores</button>
                             <button type="button" class="btn-danger" data-bs-dismiss="modal">❌</button>
                         </div>
                     </div>

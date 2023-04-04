@@ -11,6 +11,8 @@ btnRedSkin = document.getElementById("btnRedSkin");
 imgBluekSkin = document.getElementById("imgBluekSkin");
 btnBlueSkin = document.getElementById("btnBlueSkin");
 
+localStorage.setItem("colorSkin", 0);
+
 function change_mute() {
   if (bgMusic.muted == false) {
     bgMusic.muted = true;
@@ -25,14 +27,23 @@ btnBlackSkin.addEventListener("click", () => {
   imgBlackSkin.style.display = "block";
   imgRedSkin.style.display = "none";
   imgBluekSkin.style.display = "none";
+  localStorage.removeItem("colorSkin");
+  localStorage.setItem("colorSkin", 0);
 });
 btnRedSkin.addEventListener("click", () => {
   imgRedSkin.style.display = "block";
   imgBlackSkin.style.display = "none";
   imgBluekSkin.style.display = "none";
+  localStorage.removeItem("colorSkin");
+  localStorage.setItem("colorSkin", 1);
 });
 btnBlueSkin.addEventListener("click", () => {
   imgBluekSkin.style.display = "block";
   imgBlackSkin.style.display = "none";
   imgRedSkin.style.display = "none";
+  localStorage.removeItem("colorSkin");
+  localStorage.setItem("colorSkin", 2);
+  
 });
+
+
