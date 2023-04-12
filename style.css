@@ -1,10 +1,10 @@
 * {
 	margin: 0px;
 	padding: 0px;
+	font-family: cursive, 'Times New Roman', 'Arial';
 }
-
 body {
-	background-color: green;
+	background-color: rgba(0, 0, 0, 0.87);
 	/*animation: rainbow-bg 10s linear;
 	animation-iteration-count: infinite;*/
 	display: flex;
@@ -16,7 +16,8 @@ body {
 }
 
 #canvasGame {
-	border: 10px solid rgb(202, 202, 202);
+	border: 4px solid rgb(0, 0, 0);
+	padding: 0%;
 }
 
 @keyframes rainbow-bg{
@@ -56,4 +57,103 @@ body {
 	91%{
 		background-color: rgb(255,0,127);
 	}
+	
+}
+.title {
+	color:rgb(255, 255, 255);
+	text-shadow: 5px 4px 2px rgb(4, 0, 128), 0 0 1em blue, 0 0 0.2em rgb(59, 0, 254);
+	
+}
+.bigbutton{
+	width: 300px;
+	height: 100px;
+}
+
+.btn{
+	background-color: rgb(255, 255, 255);
+	color:rgb(0, 0, 0);
+	border-radius: 50px;
+}
+.btn:hover{
+	background-image: linear-gradient(144deg,rgb(59, 0, 254),50%,#737373);
+	box-shadow: 5px 5px 2px 2px rgba(0, 0, 255, .2);
+}
+
+.modal-body button{
+	height: 250px;
+	width: 100px;
+}
+
+.wave1
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('./img/footerimg.png');
+    background-size: 1000px 100px;
+    animation: animate2 40s linear infinite;
+    animation-delay: 0.9s;
+}
+.wave2
+{
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    opacity: 0.7;
+    background: url('./img/footerimg.png');
+    background-size: 1000px 100px;
+    animation: animate2 30s linear infinite;
+    animation-delay: 0.5s;
+}
+.wave3
+{
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    opacity: 0.5;
+    background: url('./img/footerimg.png');
+    background-size: 1000px 100px;
+    animation: animate2 15s linear infinite;
+    animation-delay: 0.25s;
+}
+
+@keyframes animate2
+{
+    0%
+    {
+        background-position-x: 0;
+    }
+    100%
+    {
+        background-position-x: -500px;
+    }
+}
+@keyframes animate2
+{
+    0%
+    {
+        background-position-x: 500px;
+    }
+    100%
+    {
+        background-position-x: -500px;
+    }
+}
+.skinDefault{
+	display:block;
+	position: relative;
+    left: 45%;
+    right: 45%;
+}
+.skinsImg{	
+	position: relative;
+    left: 45%;
+    right: 45%;
+	display:none;
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="style.css">
+
+	<script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+	<link rel="icon" type="img/png" href="img/logo.png" />
+	<script defer src="script.js"></script>
+	<script src ="classes\Obstacle.js"> </script>
+	<title>Game</title>
+</head>
+
+<body>
+		<div class="container-fluid text-center">
+			<div class="row ">
+				<div class="col scoreGame bg-dark bg-gradient text-primary">
+					<h2>Affichage des scores en temps réel</h2>
+				</div>
+			</div>
+			<div class="row ">
+				<div class="col">
+				<canvas id="canvasGame"></canvas>
+			</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<audio id="bgAudio" loop autoplay>
+                        <source src="./song/menu.mp3" type="audio/mpeg">
+                    </audio>
+                    <button class="mute btn btn-light" onclick="change_mute()"><img src="./img/sonon.svg"
+                            id="btnSonImg"></button>
+				</div>
+				<div class="col">
+				<a href="index.html"><button class="btn btn-light"><img src="img/house.svg"
+					class="img-fluid" /></button></a>
+				</div>
+			</div>
+	</div>
+</body>
+<footer>
+
+</footer>
+
+</html>
