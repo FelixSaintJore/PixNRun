@@ -7,10 +7,10 @@ https://www.youtube.com/watch?v=rTVoyWu8r6g
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-const speed = 10;
 canvas.width = 1024;
 canvas.height = 500;
 const scaleFactor = 1; //scale for bg
+
 
 const scaledCanvas = {
     width: canvas.width / scaleFactor,
@@ -31,12 +31,18 @@ function change_mute() {
   
   }
 
+let IDanimation = 1;
+
 var colorSkin = localStorage.getItem('colorSkin');
-const flour = 0  ;
-const GLB_gravity = .7;
+const floor = 0;
+const GLB_gravity = 1;
 let GLB_velocityX = 5;
-let GLB_velocityY = 15;
+let GLB_velocityY = 17;
+const GLB_speed = 10;
 const GLB_bgColor = '#35daf0';
+let GLB_scoreboard = [];
+let GLB_currentScore = 0;
+let GLB_pseudo = 'Player';
 
 class Sprite {
     constructor({ position, velocity, animations }) {
@@ -55,6 +61,7 @@ class Sprite {
         this.elapsedFrame = 0;
         this.lastKey;
         this.animations = animations;
+        this.hasJumped = false;
     }   
 
     draw() {
@@ -64,15 +71,24 @@ class Sprite {
 
     update() {
         this.draw();
+        if (collisionDetection(this)){
+            console.log("collision returned true ");
+            //subject.position.x = obs.obsRencontre.x;
+            
+        }
+        
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-            this.velocity.y = flour;
+            this.velocity.y = floor;
         } else {
             this.velocity.y += GLB_gravity;
         }
 
+        if((Math.round(this.position.y + this.height)) === canvas.height){
+            player.hasJumped = false;
+        }
 
         /*if(this.frameX < 8) this.frameX++;
         else 
@@ -85,71 +101,6 @@ class Sprite {
         }
     }
 }
-const playerDontMove = new Image();
-playerDontMove.src = './img/playerDontMove.png';
-const playerDontMoveRed = new Image();
-playerDontMoveRed.src = './img/playerDontMoveRed.png';
-const playerDontMoveBlue = new Image();
-playerDontMoveBlue.src = './img/playerDontMoveBlue.png';
-
-const playerRight = new Image();
-playerRight.src = './img/playerRight.png';
-const playerRightRed = new Image();
-playerRightRed.src = './img/playerRightRed.png';
-const playerRightBlue = new Image();
-playerRightBlue.src = './img/playerRightBlue.png';
-
-const playerJump = new Image();
-playerJump.src = './img/playerJump.png';
-const playerJumpRed = new Image();
-playerJumpRed.src = './img/playerJumpRed.png';
-const playerJumpBlue = new Image();
-playerJumpBlue.src = './img/playerJumpBlue.png';
-
-const playerLeft = new Image();
-playerLeft.src = './img/playerLeft.png';
-const playerLeftRed = new Image();
-playerLeftRed.src = './img/playerLeftRed.png';
-const playerLeftBlue = new Image();
-playerLeftBlue.src = './img/playerLeftBlue.png';
-
-const playerDead = new Image();
-playerDead.src = './img/playerDead.png';
-const playerDeadRed = new Image();
-playerDeadRed.src = './img/playerDeadRed.png';
-const playerDeadBlue = new Image();
-playerDeadBlue.src = './img/playerDeadBlue.png';
-
-
-const player = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    }, velocity: {
-        x: 0,
-        y: 0
-    },
-    animations: { // 0=> noir, 1=> rouge, 2=> bleu
-        static: [playerDontMove, playerDontMoveRed, playerDontMoveBlue],
-        right: [playerRight, playerRightRed, playerRightBlue],
-        jump: [playerJump, playerJumpRed, playerJumpBlue],
-        left: [playerLeft, playerLeftRed, playerLeftBlue]
-    }
-    
-});
-
-const flourLayer = new Image();
-flourLayer.src = './img/flour.png'; //first layer
-const routeLayer = new Image();
-routeLayer.src = './img/route.png'; //first layer
-const batimentLayer = new Image();
-batimentLayer.src = './img/batiment.png';
-const rocheLayer = new Image();
-rocheLayer.src = './img/roche.png';
-const skyLayer = new Image();
-skyLayer.src = './img/sky.png';
-const ovniLayer = new Image();
-ovniLayer.src = './img/ovni.png'; //last layer
 
 class SpriteBackground{
     constructor(image, speedBuffer){
@@ -159,11 +110,11 @@ class SpriteBackground{
         this.height = 500;
         this.x2 = this.width;
         this.speedBuffer = speedBuffer;
-        this.speedy = this.speed * this.speedBuffer;
+        this.speedy = GLB_speed * this.speedBuffer;
         this.image = image;
     }
     update(){
-        this.speedy = speed * this.speedBuffer; 
+        this.speedy = GLB_speed * this.speedBuffer; 
         if(this.x <= -this.width){ 
             this.x = this.width + this.x2 - this.speedy;
         }
@@ -178,15 +129,9 @@ class SpriteBackground{
         ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
     }
 }
-const layer1 = new SpriteBackground(flourLayer,0.6);
-const layer2 = new SpriteBackground(routeLayer,0.5);
-const layer3 = new SpriteBackground(rocheLayer,0.4);
-const layer4 = new SpriteBackground(batimentLayer,0.2);
-const layer5 = new SpriteBackground(skyLayer,0.1);
-const layer6 = new SpriteBackground(ovniLayer,0.3);
 
 
-class Plateforme {
+/*class Plateforme {
     constructor({ position, velocity, platef }) {
         this.position = position;
         this.velocity = velocity;
@@ -231,7 +176,7 @@ class Obstacle {
 
     update() {
         this.draw();
-        this.position.x -= speed * 0.1;
+        this.position.x -= GLB_speed * 0.1;
     }
 
 }
@@ -244,8 +189,84 @@ const obstaclepique = new Obstacle({
         y: 0
     },
     obs: ''
+})*/
+
+let obs1 = new Crater({
+    position: {
+        x: canvas.width,
+        y: canvas.height - 35 /* attention changer */
+    }
+});
+
+let obs2 = new Comete({
+    position: {
+        x: canvas.width,
+        y: 0
+    }
+});
+
+const collisionBlocks = [obs1, obs2];
+
+collisionBlocks.forEach(element => {
+    //console.log(element);
+    element.draw();
 })
 
+function createObstacles(nom){
+    
+    switch (nom) {
+        case "Crater" :
+            nbcrateres =  Math.floor((Math.random() * 3) +1);
+            for (i =0;i<nbcrateres;i++){
+                collisionBlocks.push(new Crater({
+                    position: {
+                        x: canvas.width + i * 25,
+                        y: canvas.height - 35 /* attention changer */
+                    }
+                }))
+            }
+            break;
+        
+        case "Comet" : 
+            nbcrateres =  Math.floor((Math.random() * 3) +1);
+            for (i =0;i<nbcrateres;i++){
+                collisionBlocks.push(new Comete({
+                    position: {
+                        x: canvas.width,
+                        y: 0
+                    }
+                }))
+            }
+            break;
+    }
+    
+    
+}
+
+//return :
+//          - object position
+//          - collision : bool to know if there is collision
+//          - bord
+//return false sinon
+function collisionDetection(subject) {
+    collision = false;
+    collisionBlocks.forEach(obstacle=> {
+        //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
+        if( subject.position.x + subject.width>= obstacle.position.x 
+            && subject.position.x< obstacle.position.x + obstacle.width
+            && subject.position.y + subject.height >= obstacle.position.y
+            && subject.position.y < obstacle.position.y + obstacle.height
+            )
+            {
+            collision = true;
+        }
+    } )
+    return collision;
+}
+
+
+setInterval(createObstacles, 2000, "Crater");
+setInterval(createObstacles, 1500, "Comet");
 
 
 const keys = {
@@ -269,7 +290,90 @@ const keys = {
     }
 }
 
+//function init() {
+/* mettre dans une fonction, dans un autre fichier, et l'appeler ici */
+const playerDontMove = new Image();
+playerDontMove.src = './img/playerDontMove.png';
+const playerDontMoveRed = new Image();
+playerDontMoveRed.src = './img/playerDontMoveRed.png';
+const playerDontMoveBlue = new Image();
+playerDontMoveBlue.src = './img/playerDontMoveBlue.png';
 
+const playerRight = new Image();
+playerRight.src = './img/playerRight.png';
+const playerRightRed = new Image();
+playerRightRed.src = './img/playerRightRed.png';
+const playerRightBlue = new Image();
+playerRightBlue.src = './img/playerRightBlue.png';
+
+const playerJump = new Image();
+playerJump.src = './img/playerJump.png';
+const playerJumpRed = new Image();
+playerJumpRed.src = './img/playerJumpRed.png';
+const playerJumpBlue = new Image();
+playerJumpBlue.src = './img/playerJumpBlue.png';
+
+const playerLeft = new Image();
+playerLeft.src = './img/playerLeft.png';
+const playerLeftRed = new Image();
+playerLeftRed.src = './img/playerLeftRed.png';
+const playerLeftBlue = new Image();
+playerLeftBlue.src = './img/playerLeftBlue.png';
+
+const playerDead = new Image();
+playerDead.src = './img/playerDead.png';
+const playerDeadRed = new Image();
+playerDeadRed.src = './img/playerDeadRed.png';
+const playerDeadBlue = new Image();
+playerDeadBlue.src = './img/playerDeadBlue.png';
+/* --- */
+
+
+
+const player = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    }, velocity: {
+        x: 0,
+        y: 0
+    },
+    animations: { // 0=> noir, 1=> rouge, 2=> bleu
+        static: [playerDontMove, playerDontMoveRed, playerDontMoveBlue],
+        right: [playerRight, playerRightRed, playerRightBlue],
+        jump: [playerJump, playerJumpRed, playerJumpBlue],
+        left: [playerLeft, playerLeftRed, playerLeftBlue]
+    }
+    
+});
+player.draw();
+
+
+/* mettre dans une fonction, dans un autre fichier, et l'appeler ici */
+const floorLayer = new Image();
+floorLayer.src = './img/floor.png'; //first layer
+const routeLayer = new Image();
+routeLayer.src = './img/route.png'; //first layer
+const batimentLayer = new Image();
+batimentLayer.src = './img/batiment.png';
+const rocheLayer = new Image();
+rocheLayer.src = './img/roche.png';
+const skyLayer = new Image();
+skyLayer.src = './img/sky.png';
+const ovniLayer = new Image();
+ovniLayer.src = './img/ovni.png'; //last layer
+/* --- */
+
+
+const layer1 = new SpriteBackground(floorLayer,0.6);
+const layer2 = new SpriteBackground(routeLayer,0.5);
+const layer3 = new SpriteBackground(rocheLayer,0.4);
+const layer4 = new SpriteBackground(batimentLayer,0.2);
+const layer5 = new SpriteBackground(skyLayer,0.1);
+const layer6 = new SpriteBackground(ovniLayer,0.3);
+
+//}
+//init();
 
 function animate() {
 
@@ -290,16 +394,33 @@ function animate() {
     layer1.draw();
     
     
-    requestAnimationFrame(animate);
+    IDanimation = window.requestAnimationFrame(animate);
     /*player*/
     player.update();
-    player.draw();
 
     /*plateformes*/
-    plateforme1.update();
+    //plateforme1.update();
     /*obstacles*/
-    obstaclepique.update();
-
+    //obstaclepique.update();
+    collisionBlocks.forEach((element, i)=>{
+        if (element.constructor.name = "Comete" 
+        && element.position.x >= 0 
+        && element.position.y + element.height + element.velocity.y >= canvas.height ){
+            collisionBlocks[i]= new Crater({
+                position: {
+                    x: element.position.x,
+                    y: canvas.height - 35
+                }
+            })
+        }
+        else if (element.position.x >= 0 &&  element.position.y  <= canvas.height ){
+            
+            element.update();
+        }
+        else {
+            collisionBlocks.splice(i,1);
+        }
+    })
 
     player.velocity.x = 0;
 
@@ -310,10 +431,11 @@ function animate() {
     } else if ((keys.d.pressed && player.lastKey === 'd') || (keys.arrowRight.pressed && player.lastKey === 'ArrowRight')) {
         player.velocity.x = GLB_velocityX;
     }*/
-    if ((keys.z.pressed || keys.arrowUp.pressed) && ((Math.round((player.position.y + player.height) / 100) * 100) == canvas.height)) {
+    if ((keys.z.pressed || keys.arrowUp.pressed) && ((Math.round((player.position.y + player.height) / 100) * 100) == canvas.height) && player.hasJumped !== true) {
         player.velocity.y = -GLB_velocityY;
         player.image = player.animations.jump[colorSkin];
-    }else if (player.velocity.y ==flour){
+        player.hasJumped = true
+    }else if (player.velocity.y == floor){
         player.image = player.animations.static[colorSkin];
     }if (keys.q.pressed || keys.arrowLeft.pressed) {
         player.velocity.x = -GLB_velocityX;
@@ -379,6 +501,25 @@ window.addEventListener('keyup', (event) => {
     }
 });
 
-console.log("test git");
+let pause = new Image();
+pause.src = './img/logoPause.png';
+function toggleAnimation() {
+    // console.log(IDanimation);
+    if (IDanimation==0) {
+        // Animation stoppée : on la relance
+        animate();  
+    } else {  // Arrêt de l'animation
+        cancelAnimationFrame(IDanimation);
+        IDanimation=0;
+        ctx.save();
+        ctx.scale(0.25, 0.25);
+        ctx.drawImage(pause, canvas.width * 1.65 ,canvas.height * 1.25);
+        ctx.restore();
+    }
+}
 
-
+window.addEventListener('keypress', (event) =>{
+   if (event.key == 'p'){
+        toggleAnimation();
+   }
+});

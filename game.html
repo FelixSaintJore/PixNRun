@@ -12,9 +12,8 @@
 	<script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
 	<link rel="icon" type="img/png" href="img/logo.png" />
-	<script defer src="menujs.js"></script>
 	<script defer src="script.js"></script>
-
+	<script src ="classes\Obstacle.js"> </script>
 	<title>Game</title>
 </head>
 
@@ -32,8 +31,8 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<audio id="bgAudio" loop="loop" >
-                        <source src="./song/menu.mp4" type="audio/mpeg">
+					<audio id="bgAudio" loop autoplay>
+                        <source src="./song/menu.mp3" type="audio/mpeg">
                     </audio>
                     <button class="mute btn btn-light" onclick="change_mute()"><img src="./img/sonon.svg"
                             id="btnSonImg"></button>
