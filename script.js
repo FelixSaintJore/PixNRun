@@ -22,14 +22,14 @@ bgMusic.volume = 0.75;
 
 function change_mute() {
     if (bgMusic.muted == false) {
-      bgMusic.muted = true;
-      imgMusic.src = "./img/sonoff.svg"
+        bgMusic.muted = true;
+        imgMusic.src = "./img/sonoff.svg"
     } else {
-      bgMusic.muted = false;
-      imgMusic.src = "./img/sonon.svg"
+        bgMusic.muted = false;
+        imgMusic.src = "./img/sonon.svg"
     }
-  
-  }
+
+}
 
 let IDanimation = 1;
 
@@ -62,7 +62,7 @@ class Sprite {
         this.lastKey;
         this.animations = animations;
         this.hasJumped = false;
-    }   
+    }
 
     draw() {
         if (!this.image) return
@@ -71,12 +71,12 @@ class Sprite {
 
     update() {
         this.draw();
-        if (collisionDetection(this)){
+        if (collisionDetection(this)) {
             console.log("collision returned true ");
             //subject.position.x = obs.obsRencontre.x;
-            
+
         }
-        
+
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
 
@@ -86,24 +86,25 @@ class Sprite {
             this.velocity.y += GLB_gravity;
         }
 
-        if((Math.round(this.position.y + this.height)) === canvas.height){
+        if ((Math.round(this.position.y + this.height)) === canvas.height) {
             player.hasJumped = false;
         }
 
         /*if(this.frameX < 8) this.frameX++;
         else 
         this.frameX = 0;*/
+        
         this.elapsedFrame++;
-        if (this.elapsedFrame % this.frameBuffer === 0) {
-            if (this.frame < this.maxFrame) this.frame++;
-            else this.frame = this.minFrame;
-            this.frameX = this.frame % 8;
-        }
+    if (this.elapsedFrame % this.frameBuffer === 0) {
+        if (this.frame < this.maxFrame) this.frame++;
+        else this.frame = this.minFrame;
+        this.frameX = this.frame % 8;
+    }
     }
 }
 
-class SpriteBackground{
-    constructor(image, speedBuffer){
+class SpriteBackground {
+    constructor(image, speedBuffer) {
         this.x = 0;
         this.y = 0;
         this.width = 2400;
@@ -113,18 +114,18 @@ class SpriteBackground{
         this.speedy = GLB_speed * this.speedBuffer;
         this.image = image;
     }
-    update(){
-        this.speedy = GLB_speed * this.speedBuffer; 
-        if(this.x <= -this.width){ 
+    update() {
+        this.speedy = GLB_speed * this.speedBuffer;
+        if (this.x <= -this.width) {
             this.x = this.width + this.x2 - this.speedy;
         }
-        if(this.x2 <= -this.width){
-            this.x2  = this.width + this.x - this.speedy;
+        if (this.x2 <= -this.width) {
+            this.x2 = this.width + this.x - this.speedy;
         }
         this.x = Math.floor(this.x - this.speedy);
         this.x2 = Math.floor(this.x2 - this.speedy);
     }
-    draw(){
+    draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
     }
@@ -212,12 +213,12 @@ collisionBlocks.forEach(element => {
     element.draw();
 })
 
-function createObstacles(nom){
-    
+function createObstacles(nom) {
+
     switch (nom) {
-        case "Crater" :
-            nbcrateres =  Math.floor((Math.random() * 3) +1);
-            for (i =0;i<nbcrateres;i++){
+        case "Crater":
+            nbcrateres = Math.floor((Math.random() * 3) + 1);
+            for (i = 0; i < nbcrateres; i++) {
                 collisionBlocks.push(new Crater({
                     position: {
                         x: canvas.width + i * 25,
@@ -226,10 +227,10 @@ function createObstacles(nom){
                 }))
             }
             break;
-        
-        case "Comet" : 
-            nbcrateres =  Math.floor((Math.random() * 3) +1);
-            for (i =0;i<nbcrateres;i++){
+
+        case "Comet":
+            nbcrateres = Math.floor((Math.random() * 3) + 1);
+            for (i = 0; i < nbcrateres; i++) {
                 collisionBlocks.push(new Comete({
                     position: {
                         x: canvas.width,
@@ -239,8 +240,8 @@ function createObstacles(nom){
             }
             break;
     }
-    
-    
+
+
 }
 
 //return :
@@ -250,17 +251,16 @@ function createObstacles(nom){
 //return false sinon
 function collisionDetection(subject) {
     collision = false;
-    collisionBlocks.forEach(obstacle=> {
+    collisionBlocks.forEach(obstacle => {
         //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
-        if( subject.position.x + subject.width>= obstacle.position.x 
-            && subject.position.x< obstacle.position.x + obstacle.width
+        if (subject.position.x + subject.width >= obstacle.position.x
+            && subject.position.x < obstacle.position.x + obstacle.width
             && subject.position.y + subject.height >= obstacle.position.y
             && subject.position.y < obstacle.position.y + obstacle.height
-            )
-            {
+        ) {
             collision = true;
         }
-    } )
+    })
     return collision;
 }
 
@@ -344,7 +344,7 @@ const player = new Sprite({
         jump: [playerJump, playerJumpRed, playerJumpBlue],
         left: [playerLeft, playerLeftRed, playerLeftBlue]
     }
-    
+
 });
 player.draw();
 
@@ -365,12 +365,12 @@ ovniLayer.src = './img/ovni.png'; //last layer
 /* --- */
 
 
-const layer1 = new SpriteBackground(floorLayer,0.6);
-const layer2 = new SpriteBackground(routeLayer,0.5);
-const layer3 = new SpriteBackground(rocheLayer,0.4);
-const layer4 = new SpriteBackground(batimentLayer,0.2);
-const layer5 = new SpriteBackground(skyLayer,0.1);
-const layer6 = new SpriteBackground(ovniLayer,0.3);
+const layer1 = new SpriteBackground(floorLayer, 0.6);
+const layer2 = new SpriteBackground(routeLayer, 0.5);
+const layer3 = new SpriteBackground(rocheLayer, 0.4);
+const layer4 = new SpriteBackground(batimentLayer, 0.2);
+const layer5 = new SpriteBackground(skyLayer, 0.1);
+const layer6 = new SpriteBackground(ovniLayer, 0.3);
 
 //}
 //init();
@@ -378,8 +378,8 @@ const layer6 = new SpriteBackground(ovniLayer,0.3);
 function animate() {
 
     /*background*/
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     layer5.draw();
     layer5.update();
     layer6.draw();
@@ -392,8 +392,8 @@ function animate() {
     layer2.draw();
     layer1.update();
     layer1.draw();
-    
-    
+
+
     IDanimation = window.requestAnimationFrame(animate);
     /*player*/
     player.update();
@@ -402,23 +402,23 @@ function animate() {
     //plateforme1.update();
     /*obstacles*/
     //obstaclepique.update();
-    collisionBlocks.forEach((element, i)=>{
-        if (element.constructor.name = "Comete" 
-        && element.position.x >= 0 
-        && element.position.y + element.height + element.velocity.y >= canvas.height ){
-            collisionBlocks[i]= new Crater({
+    collisionBlocks.forEach((element, i) => {
+        if (element.constructor.name = "Comete"
+            && element.position.x >= 0
+            && element.position.y + element.height + element.velocity.y >= canvas.height) {
+            collisionBlocks[i] = new Crater({
                 position: {
                     x: element.position.x,
                     y: canvas.height - 35
                 }
             })
         }
-        else if (element.position.x >= 0 &&  element.position.y  <= canvas.height ){
-            
+        else if (element.position.x >= 0 && element.position.y <= canvas.height) {
+
             element.update();
         }
         else {
-            collisionBlocks.splice(i,1);
+            collisionBlocks.splice(i, 1);
         }
     })
 
@@ -435,12 +435,12 @@ function animate() {
         player.velocity.y = -GLB_velocityY;
         player.image = player.animations.jump[colorSkin];
         player.hasJumped = true
-    }else if (player.velocity.y == floor){
+    } else if (player.velocity.y == floor) {
         player.image = player.animations.static[colorSkin];
-    }if (keys.q.pressed || keys.arrowLeft.pressed) {
+    } if (keys.q.pressed || keys.arrowLeft.pressed) {
         player.velocity.x = -GLB_velocityX;
         player.image = player.animations.left[colorSkin];
-    }if (keys.d.pressed || keys.arrowRight.pressed) {
+    } if (keys.d.pressed || keys.arrowRight.pressed) {
         player.velocity.x = GLB_velocityX;
         player.image = player.animations.right[colorSkin];
     }
@@ -453,7 +453,7 @@ window.addEventListener('keydown', (event) => {
         case 'z':
             keys.z.pressed = true;
             player.lastKey = 'z';
-            
+
             break;
         case 'q':
             keys.q.pressed = true;
@@ -505,21 +505,21 @@ let pause = new Image();
 pause.src = './img/logoPause.png';
 function toggleAnimation() {
     // console.log(IDanimation);
-    if (IDanimation==0) {
+    if (IDanimation == 0) {
         // Animation stoppée : on la relance
-        animate();  
+        animate();
     } else {  // Arrêt de l'animation
         cancelAnimationFrame(IDanimation);
-        IDanimation=0;
+        IDanimation = 0;
         ctx.save();
         ctx.scale(0.25, 0.25);
-        ctx.drawImage(pause, canvas.width * 1.65 ,canvas.height * 1.25);
+        ctx.drawImage(pause, canvas.width * 1.65, canvas.height * 1.25);
         ctx.restore();
     }
 }
 
-window.addEventListener('keypress', (event) =>{
-   if (event.key == 'p'){
+window.addEventListener('keypress', (event) => {
+    if (event.key == 'p') {
         toggleAnimation();
-   }
+    }
 });
