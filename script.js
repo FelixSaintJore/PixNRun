@@ -72,12 +72,18 @@ class Sprite {
     update() {
         this.draw();
         if (collisionDetection(this)){
-            console.log("collision returned true ");
-            //subject.position.x = obs.obsRencontre.x;
-            
+            console.log("collision returned true ");            
         }
         
-        this.position.x += this.velocity.x;
+        if (this.position.x + this.width + this.velocity.x >= canvas.width) {
+            this.position.x = canvas.width - this.width;
+        }
+        else if (this.position.x + this.velocity.x <= 0){
+            this.position.x = 0;
+        }
+        else {
+            this.position.x += this.velocity.x;
+        }
         this.position.y += this.velocity.y;
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height) {
@@ -85,6 +91,8 @@ class Sprite {
         } else {
             this.velocity.y += GLB_gravity;
         }
+
+         
 
         if((Math.round(this.position.y + this.height)) === canvas.height){
             player.hasJumped = false;
