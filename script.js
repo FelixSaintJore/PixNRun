@@ -350,8 +350,6 @@ player.draw();
 
 
 /* mettre dans une fonction, dans un autre fichier, et l'appeler ici */
-const floorLayer = new Image();
-floorLayer.src = './img/floor.png'; //first layer
 const routeLayer = new Image();
 routeLayer.src = './img/route.png'; //first layer
 const batimentLayer = new Image();
@@ -364,8 +362,6 @@ const ovniLayer = new Image();
 ovniLayer.src = './img/ovni.png'; //last layer
 /* --- */
 
-
-const layer1 = new SpriteBackground(floorLayer, 0.6);
 const layer2 = new SpriteBackground(routeLayer, 0.5);
 const layer3 = new SpriteBackground(rocheLayer, 0.4);
 const layer4 = new SpriteBackground(batimentLayer, 0.2);
@@ -390,8 +386,6 @@ function animate() {
     layer3.update();
     layer2.update();
     layer2.draw();
-    layer1.update();
-    layer1.draw();
 
 
     IDanimation = window.requestAnimationFrame(animate);
