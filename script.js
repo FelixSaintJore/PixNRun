@@ -213,7 +213,6 @@ collisionBlocks.forEach(element => {
 })
 
 function createObstacles(nom){
-    
     switch (nom) {
         case "Crater" :
             nbcrateres =  Math.floor((Math.random() * 3) +1);
@@ -249,7 +248,7 @@ function createObstacles(nom){
 //          - bord
 //return false sinon
 function collisionDetection(subject) {
-    collision = false;
+    var collision = false;
     collisionBlocks.forEach(obstacle=> {
         //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
         if( subject.position.x + subject.width>= obstacle.position.x 
@@ -263,10 +262,6 @@ function collisionDetection(subject) {
     } )
     return collision;
 }
-
-
-setInterval(createObstacles, 2000, "Crater");
-setInterval(createObstacles, 1500, "Comet");
 
 
 const keys = {
@@ -375,6 +370,10 @@ const layer6 = new SpriteBackground(ovniLayer,0.3);
 //}
 //init();
 
+var countCraters = 0;
+let countComets = 0;
+var tt = 0;
+
 function animate() {
 
     /*background*/
@@ -400,8 +399,6 @@ function animate() {
 
     /*plateformes*/
     //plateforme1.update();
-    /*obstacles*/
-    //obstaclepique.update();
     collisionBlocks.forEach((element, i)=>{
         if (element.constructor.name = "Comete" 
         && element.position.x >= 0 
@@ -423,6 +420,16 @@ function animate() {
     })
 
     player.velocity.x = 0;
+
+    if (countCraters < document.timeline.currentTime / 2500){
+        countCraters++;
+        createObstacles("Crater");
+    }
+
+    if (countComets < document.timeline.currentTime / 1750){
+        countComets++;
+        createObstacles("Comet");
+    }
 
     /*if((keys.z.pressed && player.lastKey === 'z') || (keys.arrowUp.pressed && player.lastKey === 'ArrowUp')) {
         player.velocity.y = -GLB_velocityY;
@@ -501,19 +508,25 @@ window.addEventListener('keyup', (event) => {
     }
 });
 
-let pause = new Image();
-pause.src = './img/logoPause.png';
+let pauseImg = new Image();
+pauseImg.src = './img/logoPause.png';
+
+var startTime, endtime, timediff;
 function toggleAnimation() {
     // console.log(IDanimation);
     if (IDanimation==0) {
         // Animation stoppée : on la relance
         animate();  
+        
+        
     } else {  // Arrêt de l'animation
+        
         cancelAnimationFrame(IDanimation);
+        
         IDanimation=0;
         ctx.save();
         ctx.scale(0.25, 0.25);
-        ctx.drawImage(pause, canvas.width * 1.65 ,canvas.height * 1.25);
+        ctx.drawImage(pauseImg, canvas.width * 1.65 ,canvas.height * 1.25);
         ctx.restore();
     }
 }
