@@ -127,9 +127,11 @@ collisionBlocks.forEach(element => {
     element.draw();
 })
 
+const CRATER = 1;
+const COMET = 2;
 function createObstacles(nom){
     switch (nom) {
-        case "Crater" :
+        case CRATER :
             nbcrateres =  Math.floor((Math.random() * 3) +1);
             for (i =0;i<nbcrateres;i++){
                 collisionBlocks.push(new Crater({
@@ -141,7 +143,7 @@ function createObstacles(nom){
             }
             break;
         
-        case "Comet" : 
+        case COMET : 
             nbcrateres =  Math.floor((Math.random() * 3) +1);
             for (i =0;i<nbcrateres;i++){
                 collisionBlocks.push(new Comete({
@@ -198,6 +200,27 @@ const keys = {
     arrowRight: {
         pressed: false
     }
+}
+const DEATH = 0;
+const LIFE = 1;
+var state = LIFE;
+function ninjaDeath(){
+    state = DEATH;
+    cancelAnimationFrame(IDanimation);
+    IDanimation = 0;
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle"
+    ctx.font = '125px serif';
+    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2); 
+    collisionBlocks.length = 0;
+
+}
+
+function init(){
+    state = LIFE;
+    ctx.clearRect(0, 0, scaledCanvas.width, scaledCanvas.height);
+
 }
 
 //function init() {
@@ -287,10 +310,11 @@ const layer6 = new SpriteBackground(ovniLayer,0.3);
 
 var countCraters = 0;
 let countComets = 0;
-var tt = 0;
 
 function animate() {
-
+    if (state == DEATH){
+        return 400;
+    }
     /*background*/
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
@@ -338,12 +362,12 @@ function animate() {
 
     if (countCraters < document.timeline.currentTime / 2500){
         countCraters++;
-        createObstacles("Crater");
+        createObstacles(CRATER);
     }
 
     if (countComets < document.timeline.currentTime / 1750){
         countComets++;
-        createObstacles("Comet");
+        createObstacles(COMET);
     }
 
     /*if((keys.z.pressed && player.lastKey === 'z') || (keys.arrowUp.pressed && player.lastKey === 'ArrowUp')) {
@@ -429,9 +453,11 @@ pauseImg.src = './img/logoPause.png';
 var startTime, endtime, timediff;
 function toggleAnimation() {
     // console.log(IDanimation);
-    if (IDanimation==0) {
+    if (IDanimation==0 ) {
         // Animation stoppée : on la relance
-        animate();  
+        if (state == LIFE){
+            animate();  
+        }
         
         
     } else {  // Arrêt de l'animation
@@ -443,6 +469,7 @@ function toggleAnimation() {
         ctx.scale(0.25, 0.25);
         ctx.drawImage(pauseImg, canvas.width * 1.65 ,canvas.height * 1.25);
         ctx.restore();
+        
     }
 }
 

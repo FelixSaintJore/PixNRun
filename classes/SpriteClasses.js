@@ -26,7 +26,8 @@ class Sprite {
     update() {
         this.draw();
         if (collisionDetection(this)){
-            console.log("collision returned true ");            
+            ninjaDeath();
+            
         }
         
         if (this.position.x + this.width + this.velocity.x >= canvas.width) {
