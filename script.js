@@ -120,12 +120,7 @@ let obs2 = new Comete({
     }
 });
 
-const collisionBlocks = [obs1, obs2];
-
-collisionBlocks.forEach(element => {
-    //console.log(element);
-    element.draw();
-})
+const collisionBlocks = [];
 
 const CRATER = 1;
 const COMET = 2;
@@ -203,9 +198,9 @@ const keys = {
 }
 const DEATH = 0;
 const LIFE = 1;
-var state = LIFE;
+var gameState = LIFE;
 function ninjaDeath(){
-    state = DEATH;
+    gameState = DEATH;
     cancelAnimationFrame(IDanimation);
     IDanimation = 0;
     ctx.fillStyle = "white";
@@ -213,15 +208,28 @@ function ninjaDeath(){
     ctx.textBaseline = "middle"
     ctx.font = '125px serif';
     ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2); 
+    collisionBlocks.forEach( (element)=>{
+        element.draw();
+    })
     collisionBlocks.length = 0;
 
 }
 
 function init(){
-    state = LIFE;
+    gameState = LIFE;
     ctx.clearRect(0, 0, scaledCanvas.width, scaledCanvas.height);
+    layer5.draw();
+    layer6.draw();
+    layer4.draw();
+    layer3.draw();
+    layer2.draw();
+    layer1.draw();
+    player.position.x = 0;
+    player.position.y = scaledCanvas.height - player.height;
+    player.draw();
 
 }
+
 
 //function init() {
 /* mettre dans une fonction, dans un autre fichier, et l'appeler ici */
@@ -279,7 +287,6 @@ const player = new Sprite({
     }
     
 });
-player.draw();
 
 
 /* mettre dans une fonction, dans un autre fichier, et l'appeler ici */
@@ -312,7 +319,7 @@ var countCraters = 0;
 let countComets = 0;
 
 function animate() {
-    if (state == DEATH){
+    if (gameState == DEATH){
         return 400;
     }
     /*background*/
@@ -369,6 +376,7 @@ function animate() {
         countComets++;
         createObstacles(COMET);
     }
+    
 
     /*if((keys.z.pressed && player.lastKey === 'z') || (keys.arrowUp.pressed && player.lastKey === 'ArrowUp')) {
         player.velocity.y = -GLB_velocityY;
@@ -391,7 +399,7 @@ function animate() {
         player.image = player.animations.right[colorSkin];
     }
 }
-
+init();
 animate();
 
 window.addEventListener('keydown', (event) => {
@@ -455,7 +463,7 @@ function toggleAnimation() {
     // console.log(IDanimation);
     if (IDanimation==0 ) {
         // Animation stoppée : on la relance
-        if (state == LIFE){
+        if (gameState == LIFE){
             animate();  
         }
         
