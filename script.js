@@ -124,6 +124,7 @@ const collisionBlocks = [];
 
 const CRATER = 1;
 const COMET = 2;
+//Cree un obstacle de type cratere ou comete en fonction du  nombre passe en parametre
 function createObstacles(nom){
     switch (nom) {
         case CRATER :
@@ -131,7 +132,7 @@ function createObstacles(nom){
             for (i =0;i<nbcrateres;i++){
                 collisionBlocks.push(new Crater({
                     position: {
-                        x: canvas.width + i * 25,
+                        x: canvas.width + i * 20,
                         y: canvas.height - 35 /* attention changer */
                     }
                 }))
@@ -139,11 +140,11 @@ function createObstacles(nom){
             break;
         
         case COMET : 
-            nbcrateres =  Math.floor((Math.random() * 3) +1);
-            for (i =0;i<nbcrateres;i++){
+            nbComets =  Math.floor((Math.random() * 2) +1);
+            for (i =0;i<nbComets;i++){
                 collisionBlocks.push(new Comete({
                     position: {
-                        x: canvas.width,
+                        x: (canvas.width / 3) * ((Math.random() * 3) +1),
                         y: 0
                     }
                 }))
@@ -155,17 +156,15 @@ function createObstacles(nom){
 }
 
 //return :
-//          - object position
 //          - collision : bool to know if there is collision
-//          - bord
 //return false sinon
 function collisionDetection(subject) {
     var collision = false;
     collisionBlocks.forEach(obstacle=> {
         //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
-        if( subject.position.x + subject.width>= obstacle.position.x 
+        if( subject.position.x + subject.width -5>= obstacle.position.x 
             && subject.position.x< obstacle.position.x + obstacle.width
-            && subject.position.y + subject.height >= obstacle.position.y
+            && subject.position.y + subject.height - 5  >= obstacle.position.y
             && subject.position.y < obstacle.position.y + obstacle.height
             )
             {
@@ -212,10 +211,12 @@ function ninjaDeath(){
         element.draw();
     })
     collisionBlocks.length = 0;
+    timelinePause = 0;
 
 }
 
-function init(){
+function initGame(){
+    timelinePause = 0;
     gameState = LIFE;
     ctx.clearRect(0, 0, scaledCanvas.width, scaledCanvas.height);
     layer5.draw();
@@ -313,11 +314,11 @@ const layer5 = new SpriteBackground(skyLayer,0.1);
 const layer6 = new SpriteBackground(ovniLayer,0.3);
 
 //}
-//init();
+
 
 var countCraters = 0;
 let countComets = 0;
-
+let timelinePause = 0;
 function animate() {
     if (gameState == DEATH){
         return 400;
@@ -367,12 +368,12 @@ function animate() {
 
     player.velocity.x = 0;
 
-    if (countCraters < document.timeline.currentTime / 2500){
+    if (countCraters < (document.timeline.currentTime - timelinePause) / 2500){
         countCraters++;
         createObstacles(CRATER);
     }
 
-    if (countComets < document.timeline.currentTime / 1750){
+    if (countComets < (document.timeline.currentTime - timelinePause) / 1750){
         countComets++;
         createObstacles(COMET);
     }
@@ -399,7 +400,7 @@ function animate() {
         player.image = player.animations.right[colorSkin];
     }
 }
-init();
+initGame();
 animate();
 
 window.addEventListener('keydown', (event) => {
@@ -458,7 +459,7 @@ window.addEventListener('keyup', (event) => {
 let pauseImg = new Image();
 pauseImg.src = './img/logoPause.png';
 
-var startTime, endtime, timediff;
+var startTime, endTime, timeDiff;
 function toggleAnimation() {
     // console.log(IDanimation);
     if (IDanimation==0 ) {
@@ -467,11 +468,14 @@ function toggleAnimation() {
             animate();  
         }
         
+        endTime = Date.now();
+        timeDiff = endTime - startTime;
+        timelinePause += timeDiff;
+        
         
     } else {  // Arrêt de l'animation
-        
+        startTime = Date.now();
         cancelAnimationFrame(IDanimation);
-        
         IDanimation=0;
         ctx.save();
         ctx.scale(0.25, 0.25);

@@ -1,4 +1,4 @@
-let ObstacleSpeedX = -3;
+let ObstacleSpeedX = -4;
 
 
 class Obstacle {
@@ -8,8 +8,8 @@ class Obstacle {
         this.image.src = imageSrc;
         this.velocity = velocity;
         //pt devra le tejs
-        this.width = canvas.width / 30;
-        this.height = canvas.height / 20;
+        this.width = this.image.width; //canvas.width / 30;
+        this.height = this.image.height;// canvas.height / 20;
     }
 
     draw() {
@@ -17,9 +17,7 @@ class Obstacle {
         ctx.drawImage(this.image, this.position.x, this.position.y);
     }
 
-    // update() {
-
-    // }
+    //update(){}
 }
 
 
@@ -38,6 +36,7 @@ class Comete extends Obstacle {
 
             this.position.x += this.velocity.x;
             this.position.y += this.velocity.y;
+            this.velocity.y += GLB_gravity * 0.1;
             this.draw();
 
         }
