@@ -1,4 +1,4 @@
-let ObstacleSpeedX = -4;
+let ObstacleSpeedX = -6;
 
 
 class Obstacle {
