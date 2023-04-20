@@ -114,7 +114,12 @@ class SpriteBackground {
         this.speedy = GLB_speed * this.speedBuffer;
         this.image = image;
     }
+    draw() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
+    }
     update() {
+        this.draw();
         this.speedy = GLB_speed * this.speedBuffer;
         if (this.x <= -this.width) {
             this.x = this.width + this.x2 - this.speedy;
@@ -125,10 +130,7 @@ class SpriteBackground {
         this.x = Math.floor(this.x - this.speedy);
         this.x2 = Math.floor(this.x2 - this.speedy);
     }
-    draw() {
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx.drawImage(this.image, this.x2, this.y, this.width, this.height);
-    }
+    
 }
 
 
@@ -376,16 +378,11 @@ function animate() {
     /*background*/
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    layer5.draw();
     layer5.update();
-    layer6.draw();
     layer6.update();
-    layer4.draw();
     layer4.update();
-    layer3.draw();
     layer3.update();
     layer2.update();
-    layer2.draw();
 
 
     IDanimation = window.requestAnimationFrame(animate);
