@@ -165,8 +165,8 @@ function collisionDetection(subject) {
     var collision = false;
     collisionBlocks.forEach(obstacle=> {
         //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
-        if( subject.position.x + subject.width -5>= obstacle.position.x 
-            && subject.position.x< obstacle.position.x + obstacle.width
+        if( subject.position.x + subject.width -5 >= obstacle.position.x + 5
+            && subject.position.x + 5< obstacle.position.x + obstacle.width -6
             && subject.position.y + subject.height - 5  >= obstacle.position.y + 28
             && subject.position.y < obstacle.position.y + obstacle.height 
             )
@@ -221,7 +221,7 @@ function ninjaDeath(){
 function initGame(){
     timelinePause = 0;
     gameState = LIFE;
-
+    windowVisible = true;
     ctx.clearRect(0, 0, scaledCanvas.width, scaledCanvas.height);
     layer5.draw();
     layer6.draw();
@@ -463,7 +463,7 @@ window.addEventListener('keyup', (event) => {
 let pauseImg = new Image();
 pauseImg.src = './img/logoPause.png';
 
-var startTime, endTime, timeDiff;
+var startTime = 0, endTime = 0, timeDiff = 0;
 function toggleAnimation() {
     // console.log(IDanimation);
     if (IDanimation==0 ) {
@@ -472,13 +472,10 @@ function toggleAnimation() {
             animate();  
         }
         
-        endTime = Date.now();
-        timeDiff = endTime - startTime;
-        timelinePause += timeDiff;
-        
+        endCount()
         
     } else {  // Arrêt de l'animation
-        startTime = Date.now();
+        startCount();
         cancelAnimationFrame(IDanimation);
         IDanimation=0;
         ctx.save();
@@ -488,7 +485,26 @@ function toggleAnimation() {
         
     }
 }
+function startCount(){
+    if (startTime ==0)
+    starTime = Date.now();
+}
+function endCount(){
+    endTime = Date.now();
+    timeDiff = endTime - startTime;
+    timelinePause += timeDiff;
+    startTime = 0;
+    endTime = 0;
+    timeDiff = 0;
+        
+}
 
+windowVisible = true;
+window.addEventListener("visibilitychange", (event) =>{
+    windowVisible = !windowVisible;
+    if (IDanimation != 0) toggleAnimation();
+
+});
 window.addEventListener('keypress', (event) =>{
    if (event.key == 'p'){
         toggleAnimation();

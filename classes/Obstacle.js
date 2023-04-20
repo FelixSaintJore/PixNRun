@@ -1,4 +1,4 @@
-let ObstacleSpeedX = -3;
+let ObstacleSpeedX = -5;
 
 
 class Obstacle {
@@ -37,7 +37,7 @@ class Comete extends Obstacle {
         
         super({ position
             ,imageSrc : "img/meteor.png"
-            ,velocity : {x : ObstacleSpeedX, y : 3}});
+            ,velocity : {x : ObstacleSpeedX * 2, y : 3}});
     }
     
     update() {
@@ -46,7 +46,7 @@ class Comete extends Obstacle {
 
             this.position.x += this.velocity.x;
             this.position.y += this.velocity.y;
-            this.velocity.y += GLB_gravity * 0.01;
+            this.velocity.y += GLB_gravity * 0.1;
             this.draw();
 
         }
