@@ -28,7 +28,7 @@ class Comete extends Obstacle {
     constructor({ position}) {
         
         super({ position
-            ,imageSrc : "img/meteor.png"
+            ,imageSrc : "img/ninja.png"
             ,velocity : {x : ObstacleSpeedX, y : 3}});
     }
     
@@ -47,7 +47,7 @@ class Comete extends Obstacle {
 class Crater extends Obstacle {
     constructor({ position}) {
         super({ position
-            , imageSrc : "img/ninja.png"
+            , imageSrc : "img/crater.png"
             ,velocity : {x : ObstacleSpeedX, y : 0}
     });
     }
