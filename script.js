@@ -125,6 +125,7 @@ const collisionBlocks = [];
 const CRATER = 1;
 const COMET = 2;
 //Cree un obstacle de type cratere ou comete en fonction du  nombre passe en parametre
+let i = 0;
 function createObstacles(nom){
     switch (nom) {
         case CRATER :
@@ -133,7 +134,7 @@ function createObstacles(nom){
                 collisionBlocks.push(new Crater({
                     position: {
                         x: canvas.width + i * 20,
-                        y: canvas.height - 35 /* attention changer */
+                        y: canvas.height - 65.01 /* attention changer */
                     }
                 }))
             }
@@ -148,7 +149,9 @@ function createObstacles(nom){
                         y: 0
                     }
                 }))
+                i++;
             }
+            console.log('comete de numero ' + i);
             break;
     }
     
@@ -164,8 +167,8 @@ function collisionDetection(subject) {
         //console.log("obs de nom " + obstacle.constructor.name  + " avec pour bas " + obstacle.position.y);
         if( subject.position.x + subject.width -5>= obstacle.position.x 
             && subject.position.x< obstacle.position.x + obstacle.width
-            && subject.position.y + subject.height - 5  >= obstacle.position.y
-            && subject.position.y < obstacle.position.y + obstacle.height
+            && subject.position.y + subject.height - 5  >= obstacle.position.y + 28
+            && subject.position.y < obstacle.position.y + obstacle.height 
             )
             {
             collision = true;
@@ -218,6 +221,7 @@ function ninjaDeath(){
 function initGame(){
     timelinePause = 0;
     gameState = LIFE;
+
     ctx.clearRect(0, 0, scaledCanvas.width, scaledCanvas.height);
     layer5.draw();
     layer6.draw();
@@ -353,7 +357,7 @@ function animate() {
             collisionBlocks[i]= new Crater({
                 position: {
                     x: element.position.x,
-                    y: canvas.height - 35
+                    y: canvas.height - 65.001
                 }
             })
         }
