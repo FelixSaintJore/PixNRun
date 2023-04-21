@@ -319,30 +319,26 @@ const layer6 = new SpriteBackground(ovniLayer,0.3);
 
 //}
 
+let count = 0;
+let totalCount = 0;
 
 var countCraters = 0;
 let countComets = 0;
 let timelinePause = 0;
 function animate() {
+    
     if (gameState == DEATH){
         return 400;
     }
     /*background*/
     ctx.clearRect(0,0, canvas.width, canvas.height);
     
-    layer5.draw();
     layer5.update();
-    layer6.draw();
     layer6.update();
-    layer4.draw();
     layer4.update();
-    layer3.draw();
     layer3.update();
     layer2.update();
-    layer2.draw();
-    layer1.update();
-    layer1.draw();
-    
+    layer1.update();    
     
     IDanimation = window.requestAnimationFrame(animate);
     /*player*/

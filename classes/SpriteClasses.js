@@ -77,6 +77,7 @@ class SpriteBackground{
         this.image = image;
     }
     update(){
+        this.draw();
         this.speedy = GLB_speed * this.speedBuffer; 
         if(this.x <= -this.width){ 
             this.x = this.width + this.x2 - this.speedy;
